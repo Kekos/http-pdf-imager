@@ -18,6 +18,7 @@ ENV HPI_PORT 8507
 
 COPY --from=build-env /app/target/release/http-pdf-imager /
 COPY --from=build-env --chown=root:root /pdfium/lib/libpdfium.so /lib
+COPY --from=build-env --chown=root:root /pdfium/LICENSE /lib/libpdfium_LICENSE
 
 USER nobody
 ENTRYPOINT ["./http-pdf-imager"]

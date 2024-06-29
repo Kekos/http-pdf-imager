@@ -76,4 +76,5 @@ Accept: image/jpeg,application/zip
 
 ## License
 
-MIT
+The code for http-pdf-imager is released under the MIT license. The Docker image
+ships with a PDFium binary released under the Apache License 2.0.
