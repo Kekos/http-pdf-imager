@@ -1,4 +1,4 @@
-use image::{imageops, DynamicImage, ImageBuffer, ImageFormat};
+use image::{imageops, DynamicImage, ImageBuffer, ImageFormat, RgbImage};
 use pdfium_render::prelude::{PdfRenderConfig, Pdfium, PdfiumError, Pixels};
 use std::fmt::{Display, Formatter};
 use std::io;
@@ -199,12 +199,12 @@ fn combine_images(
     let image_temp_path = image_temp_file.path();
 
     let image_files = result.temp_files.iter();
-    let mut images: Vec<DynamicImage> = Vec::new();
+    let mut images: Vec<RgbImage> = Vec::new();
     let mut width = 0i64;
     let mut height = 0i64;
 
     for image_file in image_files {
-        let image = image::open(image_file.path()).map_err(PdfConvertError::ImageRead)?;
+        let image = image::open(image_file.path()).map_err(PdfConvertError::ImageRead)?.into_rgb8();
         let image_width = image.width() as i64;
 
         height += image.height() as i64;
