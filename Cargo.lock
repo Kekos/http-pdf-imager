@@ -1143,7 +1143,7 @@ dependencies = [
 
 [[package]]
 name = "http-pdf-imager"
-version = "1.0.0"
+version = "1.1.0"
 dependencies = [
  "async-std",
  "femme",
