@@ -1,4 +1,4 @@
-use image::{imageops, DynamicImage, ImageBuffer, ImageFormat, RgbImage};
+use image::{imageops, ImageBuffer, ImageFormat, RgbImage};
 use pdfium_render::prelude::{PdfRenderConfig, Pdfium, PdfiumError, Pixels};
 use std::fmt::{Display, Formatter};
 use std::io;
@@ -108,6 +108,10 @@ impl MultiPagesResult {
         self.temp_files.is_empty()
     }
 
+    fn is_single(&self) -> bool {
+        self.temp_files.len() == 1
+    }
+
     pub fn to_iter(&self) -> std::slice::Iter<'_, NamedTempFile> {
         self.temp_files.iter()
     }
@@ -177,6 +181,12 @@ impl PdfConverter {
         }
 
         if !params.allow_zip {
+            if result.is_single() {
+                let first = result.temp_files.remove(0);
+
+                return Ok(PdfConvertResult::Single(first));
+            }
+
             return Ok(PdfConvertResult::Single(combine_images(
                 result,
                 image_format,
