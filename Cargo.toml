@@ -1,7 +1,7 @@
 [package]
 name = "http-pdf-imager"
 description = "An HTTP microservice for converting PDF files to images"
-version = "1.1.0"
+version = "1.1.1"
 authors = ["Christoffer Lindahl Hassel"]
 edition = "2021"
 license = "MIT"
