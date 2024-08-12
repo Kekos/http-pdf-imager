@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 
+set -e
+
 if [[ $TARGETARCH = "amd64" ]]; then
   TARGETARCH="x64"
+fi
+
+if [[ $TARGETARCH = "" ]]; then
+  echo "You must set the TARGETARCH environment variable."
+  exit 1
 fi
 
 echo $TARGETARCH
