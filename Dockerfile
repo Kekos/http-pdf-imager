@@ -1,4 +1,4 @@
-FROM rust:1 as build-env
+FROM rust:1 AS build-env
 
 ARG TARGETARCH
 
@@ -14,7 +14,7 @@ RUN ./download_pdfium.sh
 
 FROM gcr.io/distroless/cc-debian12
 
-ENV HPI_PORT 8507
+ENV HPI_PORT=8507
 
 COPY --from=build-env /app/target/release/http-pdf-imager /
 COPY --from=build-env --chown=root:root /pdfium/lib/libpdfium.so /lib
